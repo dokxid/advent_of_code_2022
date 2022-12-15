@@ -1,12 +1,15 @@
+from icecream import ic
+
 import collections
 import operator
 
 # constants
+DEBUG_DATA = False
 DEBUG = False
 DAY = 3
 
 # open file
-if DEBUG:
+if DEBUG_DATA:
     file = open("input" + str(DAY) + "_mock.txt")
 else:
     file = open("input" + str(DAY) + ".txt")
@@ -107,7 +110,7 @@ def find_matching_token(text_to_search: list):
 # var
 rucksack = []
 chars = []
-sol = 0
+sol1 = 0
 sol2 = 0
 
 
@@ -119,7 +122,7 @@ if __name__ == '__main__':
         temp = text[line].__len__() - 1
         rucksack.append([text[line][0:c_size], text[line][c_size:text[line].__len__() - 1]])
         chars.append(str_compare(rucksack[line][0], rucksack[line][1]))
-    sol = sum_second_index(chars)
+    sol1 = sum_second_index(chars)
     
     # main program part 2
     token = find_matching_token(text)
@@ -127,14 +130,14 @@ if __name__ == '__main__':
         sol2 += priorities(char) * token[char]
     
     # print solution
-    print(rucksack)
-    for row in range(chars.__len__()):
-        print(chars[row])
-    print("sol: ", sol)
-    print(count_chars(text))
-    print("find_matching_token: ", token)
-    print("amount of tokens: ", sum(token.values()))
-    print("sol2: ", sol2)
+    if DEBUG:
+        ic(rucksack)
+        ic(chars)
+        ic(count_chars(text))
+        ic(token)
+        ic(sum(token.values()))
+    ic(sol1)
+    ic(sol2)
     
     # end of program reached
     print("end of program reached")
