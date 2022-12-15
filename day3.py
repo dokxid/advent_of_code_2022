@@ -1,5 +1,8 @@
+import collections
+import operator
+
 # constants
-DEBUG = False
+DEBUG = True
 DAY = 3
 
 # open file
@@ -19,11 +22,27 @@ def str_compare(a: str, b: str) -> [str, int]:
     :param b: str 2
     :return: [str, int]
     """
-    same_chars = ""
+    same_chars = "???"
     for char in a:
-        if char in b:
-            same_chars += char
-            break
+        if char in b and char != "\n":
+            same_chars = char
+    return [same_chars, priorities(same_chars)]
+
+
+def str_compare_3(a: str, b: str, c: str) -> [str, int]:
+    """
+    returns an array with [the shared characters, their point number]
+
+    :param a: str 1
+    :param b: str 2
+    :param c: str 3
+    :return: [str, int]
+    """
+    same_chars = "???"
+    for char in a:
+        if char in b and char != "\n":
+            if char in c and char != "\n":
+                same_chars = char
     return [same_chars, priorities(same_chars)]
 
 
@@ -59,6 +78,32 @@ def sum_second_index(a: list) -> int:
     return temp_sum
 
 
+def count_chars(a: list):
+    temp_char_count = {}
+    for i in a:
+        for j in i:
+            if temp_char_count.get(j) is not None:
+                temp_char_count[j] += 1
+            else:
+                temp_char_count.update({j: 1})
+    return collections.OrderedDict(sorted(temp_char_count.items(), key=operator.itemgetter(1)))
+    
+    
+def find_matching_token(text_to_search: list):
+    res = {}
+    for i in range(0, line_count, 3):
+        a = text_to_search[i]
+        b = text_to_search[i+1]
+        c = text_to_search[i+2]
+        temp_compare_str = ""
+        temp_compare = str_compare_3(a, b, c)
+        if res.get(temp_compare[0][0]) is not None:
+            res[temp_compare[0][0]] += 1
+        else:
+            res.update({temp_compare[0][0]: 1})
+    return res
+    
+
 # var
 rucksack = []
 chars = []
@@ -68,7 +113,7 @@ sol = 0
 
 if __name__ == '__main__':
     
-    # main program here
+    # main program part 1
     for line in range(line_count):
         c_size = int((text[line].__len__() - 1) / 2)
         temp = text[line].__len__() - 1
@@ -76,11 +121,15 @@ if __name__ == '__main__':
         chars.append(str_compare(rucksack[line][0], rucksack[line][1]))
     sol = sum_second_index(chars)
     
+    # main program part 2
+    print("find_matching_token: ", find_matching_token(text))
+    
     # print solution
     print(rucksack)
     for row in range(chars.__len__()):
         print(chars[row])
     print("sol: ", sol)
+    print(count_chars(text))
     
     # end of program reached
     print("end of program reached")
