@@ -1,3 +1,5 @@
+from icecream import ic
+
 if __name__ == '__main__':
     
     # a = open("input_mock")
@@ -18,6 +20,8 @@ if __name__ == '__main__':
     
     e_list_temp = [item[1] for item in e_list]
     e_list_temp.sort(reverse=True)
+    ic(e_list)
+    ic(e_list[0])
 
     print("max: ", max(e_list_temp))
     print("top 3: ", e_list_temp[0] + e_list_temp[1] + e_list_temp[2])

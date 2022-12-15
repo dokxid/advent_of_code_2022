@@ -7,3 +7,7 @@ def open_file(a, debug):
     else:
         file = open(INPUTDIR + "input" + str(a) + ".txt")
     return file
+
+
+def sanitize(a: str) -> str:
+    return a.replace('\n', '')
