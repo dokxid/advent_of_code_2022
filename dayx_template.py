@@ -3,9 +3,11 @@ from icecream import ic
 import constants
 
 # constants
+DAY = 0
 DEBUG_DATA = True
 DEBUG = True
-DAY = 0
+if not DEBUG:
+    ic.disable()
 
 # open file
 file = constants.open_file(DAY, DEBUG_DATA)
@@ -22,11 +24,11 @@ if __name__ == '__main__':
     
     # main program part 1
     for line in range(line_count):
-        sol1 = 0  # TODO
+        sol1 += 1  # TODO
     
     # main program part 2
     for line in range(line_count):
-        sol2 = 0  # TODO
+        sol2 += 1  # TODO
     
     # print solution
     if DEBUG:
