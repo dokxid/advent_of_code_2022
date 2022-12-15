@@ -15,6 +15,7 @@ line_count = text.__len__()
 # var
 sol1 = 0
 sol2 = 0
+data = {}
 
 
 if __name__ == '__main__':
@@ -29,7 +30,8 @@ if __name__ == '__main__':
     
     # print solution
     if DEBUG:
-        ic("TODO")  # TODO
+        ic("DEBUG")
+        ic(data)
     ic(sol1)
     ic(sol2)
     
