@@ -10,10 +10,7 @@ DEBUG = False
 DAY = 3
 
 # open file
-if DEBUG_DATA:
-    file = open(constants.INPUTDIR + "input" + str(DAY) + "_mock.txt")
-else:
-    file = open(constants.INPUTDIR + "input" + str(DAY) + ".txt")
+file = constants.open_file(DAY, DEBUG_DATA)
 text = file.readlines()
 line_count = text.__len__()
 

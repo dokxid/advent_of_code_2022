@@ -1,24 +1,37 @@
+# imports
+from icecream import ic
+import constants
+
 # constants
+DEBUG_DATA = True
 DEBUG = True
 DAY = 0
 
 # open file
-if DEBUG:
-    file = open("input" + str(DAY) + "_mock.txt")
-else:
-    file = open("input" + str(DAY) + ".txt")
+file = constants.open_file(DAY, DEBUG_DATA)
 text = file.readlines()
 line_count = text.__len__()
 
 # var
+sol1 = 0
+sol2 = 0
 
 
 if __name__ == '__main__':
     
-    # main program here
+    # main program part 1
+    for line in range(line_count):
+        sol1 = 0  # TODO
+    
+    # main program part 2
+    for line in range(line_count):
+        sol2 = 0  # TODO
     
     # print solution
-    print(sol)
+    if DEBUG:
+        ic("TODO")  # TODO
+    ic(sol1)
+    ic(sol2)
     
     # end of program reached
     print("end of program reached")
