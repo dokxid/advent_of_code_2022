@@ -2,7 +2,7 @@ import collections
 import operator
 
 # constants
-DEBUG = True
+DEBUG = False
 DAY = 3
 
 # open file
@@ -107,8 +107,8 @@ def find_matching_token(text_to_search: list):
 # var
 rucksack = []
 chars = []
-points = 0
 sol = 0
+sol2 = 0
 
 
 if __name__ == '__main__':
@@ -122,7 +122,9 @@ if __name__ == '__main__':
     sol = sum_second_index(chars)
     
     # main program part 2
-    print("find_matching_token: ", find_matching_token(text))
+    token = find_matching_token(text)
+    for char in token.keys():
+        sol2 += priorities(char) * token[char]
     
     # print solution
     print(rucksack)
@@ -130,6 +132,9 @@ if __name__ == '__main__':
         print(chars[row])
     print("sol: ", sol)
     print(count_chars(text))
+    print("find_matching_token: ", token)
+    print("amount of tokens: ", sum(token.values()))
+    print("sol2: ", sol2)
     
     # end of program reached
     print("end of program reached")
