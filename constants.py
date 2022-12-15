@@ -1,0 +1,1 @@
+INPUTDIR = "input/"

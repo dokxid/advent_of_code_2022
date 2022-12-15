@@ -1,7 +1,7 @@
 if __name__ == '__main__':
     
     # a = open("input_mock")
-    a = open("input1")
+    a = open("input/input1")
     b = a.readlines()
     count = b.__len__()
     

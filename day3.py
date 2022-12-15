@@ -2,6 +2,7 @@ from icecream import ic
 
 import collections
 import operator
+import constants
 
 # constants
 DEBUG_DATA = False
@@ -10,9 +11,9 @@ DAY = 3
 
 # open file
 if DEBUG_DATA:
-    file = open("input" + str(DAY) + "_mock.txt")
+    file = open(constants.INPUTDIR + "input" + str(DAY) + "_mock.txt")
 else:
-    file = open("input" + str(DAY) + ".txt")
+    file = open(constants.INPUTDIR + "input" + str(DAY) + ".txt")
 text = file.readlines()
 line_count = text.__len__()
 

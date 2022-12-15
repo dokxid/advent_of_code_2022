@@ -3,7 +3,7 @@ from enum import Enum
 if __name__ == '__main__':
 
     # file = open("input2_mock.txt")
-    file = open("input2.txt")
+    file = open("input/input2.txt")
     text = file.readlines()
     line_count = text.__len__()
     
