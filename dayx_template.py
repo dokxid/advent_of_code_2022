@@ -4,6 +4,7 @@ import constants
 
 # constants
 DAY = 0
+PART = 1
 DEBUG_DATA = True
 DEBUG = True
 if not DEBUG:
@@ -34,8 +35,8 @@ if __name__ == '__main__':
     if DEBUG:
         ic("DEBUG")
         ic(data)
-    ic(sol1)
-    ic(sol2)
+    print("sol1: ", sol1)
+    print("sol2: ", sol2)
     
     # end of program reached
     print("end of program reached")
