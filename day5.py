@@ -18,7 +18,6 @@ line_count = text.__len__()
 
 # var
 sol1 = 0
-sol2 = 0
 data = {}
 
 
@@ -120,8 +119,7 @@ if __name__ == '__main__':
         ic("SOLUTION DEBUG")
         ic(data)
         ic(stacks)
-    ic(sol1)
-    ic(sol2)
+    print("sol1: ", sol1)
     
     # end of program reached
     print("end of program reached")
