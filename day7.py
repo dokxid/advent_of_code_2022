@@ -38,7 +38,7 @@ class Directory:
         self.files = files
         self.dirs = dirs
         self.parent = parent
-        data.update({name: self})  # put into hashmap
+        data.update({self.__str__(): self})  # put into hashmap
         
     def get_size(self) -> int:
         temp_size = 0
@@ -77,7 +77,7 @@ if __name__ == '__main__':
     ic(master)
     
     # parse text into directories
-    for line in range(line_count):
+    for line in range(1, line_count):
         ic("PROCESSING LINE", sanitize(text[line]))
         if text[line][0] == "$":
             san = sanitize(text[line][2:text[line].__len__()])
@@ -100,12 +100,13 @@ if __name__ == '__main__':
                             break
                 case "cd":
                     ic("cd found", san[3:san.__len__()])
-                    if san[0:2] == "..":
+                    if san.find("..") != -1:
                         ic("switching to", current_dir.parent)
                         current_dir = current_dir.parent
                     else:
                         ic("switching to", san[3:san.__len__()])
-                        current_dir = data.get(san[3:san.__len__()])
+                        ic(current_dir.__str__() + san[3:san.__len__()])
+                        current_dir = data.get(current_dir.__str__() + san[3:san.__len__()] + "/")
     
     # calculate total size
     for directory in data:
