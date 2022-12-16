@@ -32,13 +32,13 @@ class Directory:
             files = []
         if dirs is None:
             dirs = []
+        if parent is None:
+            parent = 0
         self.name = name
         self.files = files
         self.dirs = dirs
-        if parent is None:
-            parent = 0
         self.parent = parent
-        data.update({name: self})
+        data.update({name: self})  # put into hashmap
         
     def get_size(self) -> int:
         temp_size = 0
@@ -60,10 +60,7 @@ class Directory:
             return self.parent.__str__() + self.name + "/"
         
     def __repr__(self):
-        if self.parent == 0:
-            return "/"
-        else:
-            return self.parent.__repr__() + self.name + "/"
+        return "(" + str(self.get_size()) + ", " + str(self.get_size() < 100000) + ")"
         
 
 @dataclass
@@ -115,9 +112,8 @@ if __name__ == '__main__':
         if data.get(directory).get_size() < 100000:
             ic("adding", data.get(directory).name, data.get(directory).get_size())
             sol1 += data.get(directory).get_size()
-        else:
-            ic("NOT adding", data.get(directory).name, data.get(directory).get_size())
-            sol1 += data.get(directory).get_size()
+        # else:
+            # ic("NOT adding", data.get(directory).name, data.get(directory).get_size())
             
             
     
@@ -128,6 +124,7 @@ if __name__ == '__main__':
     # print solution
     if DEBUG:
         ic("DEBUG")
+        ic(data)
     print("sol1: ", sol1)
     print("sol2: ", sol2)
     
