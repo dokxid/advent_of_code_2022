@@ -44,7 +44,7 @@ import constants
 # constants
 DAY = 8
 PART = 1
-DEBUG_DATA = False
+DEBUG_DATA = True
 DEBUG = True
 if not DEBUG:
     ic.disable()
@@ -63,7 +63,7 @@ data_bool = []
 
 
 # ignores outer trees
-def visible_trees(a: list):
+def visible_trees(a: list) -> list[bool]:
     temp_highest = -1
     j = []
     for i in range(a.__len__()):
@@ -88,14 +88,82 @@ def mark(op: list[bool], mut: list[list[bool]], index, col=False, rev=False) -> 
                 mut[index][i] = True
             
             
-def count_true(a: list[list[bool]]) -> int:
+def count_true(a: list) -> int:
+    two_arr = []
+    if not a[0].__class__ == list:
+        two_arr.append(a)
+    else:
+        two_arr = a
     k = 0
-    for i in a:
+    for i in two_arr:
         for j in i:
             if j:
                 k += 1
     return k
 
+
+def part2(data_temp):
+    sol_temp = 0
+    data_score = []
+    for i in range(data_temp.__len__()):
+        data_score.append([0] * data_temp.__len__())
+    for i, row in enumerate(data_temp):
+        for j, col in enumerate(data_temp[i]):
+            
+            cardinal = []
+            points_north = 1
+            points_south = 1
+            points_east = 1
+            points_west = 1
+            ic("row: ", i + 1)
+            ic("col: ", j + 1)
+            
+            # get array north
+            cardinal.clear()
+            cardinal_bool = [False] * (i + 1)
+            for k in range(i + 1):
+                cardinal_vert = [item[j] for item in data_temp]
+                cardinal.append(cardinal_vert[i - k])
+            cardinal[0] = -1
+            ic("north", cardinal)
+            points_north = count_true(visible_trees(cardinal))
+            
+            # get array south
+            cardinal.clear()
+            cardinal_bool = [False] * (data_temp.__len__() - j)
+            for k in range(i, data_temp.__len__()):
+                cardinal_vert = [item[j] for item in data_temp]
+                cardinal.append(cardinal_vert[k])
+            cardinal[0] = -1
+            ic("south", cardinal)
+            points_south = count_true(visible_trees(cardinal))
+            
+            # get array east
+            cardinal.clear()
+            cardinal_bool = [False] * (data_temp.__len__() - j)
+            for k in range(j, data_temp.__len__()):
+                cardinal.append(row[k])
+            cardinal[0] = -1
+            ic("east", cardinal)
+            points_east = count_true(visible_trees(cardinal))
+            
+            # get array west
+            cardinal.clear()
+            cardinal_bool = [False] * (j + 1)
+            for k in range(j + 1):
+                cardinal.append(row[j - k])
+            cardinal.reverse()
+            cardinal[0] = -1
+            ic("west", cardinal)
+            points_west = count_true(visible_trees(cardinal))
+            
+            ic(points_north, points_east, points_south, points_west)
+            data_score[i][j] = points_north * points_west * points_east * points_south
+    for i in data_score:
+        if max(i) > sol_temp:
+            sol_temp = max(i)
+    return sol_temp
+    
 
 if __name__ == '__main__':
     
@@ -108,7 +176,6 @@ if __name__ == '__main__':
             data_bool[line].append(False)
         
     # main program part 1
-    ic(data)
     for i in range(line_count):
         if i == 0:
             for j in range(data[i].__len__()):
@@ -121,8 +188,10 @@ if __name__ == '__main__':
         temp.reverse()
         mark(visible_trees(data[i]), data_bool, i)
         mark(visible_trees(temp), data_bool, i, rev=True)
-    ic(data)
     sol1 = count_true(data_bool)
+    
+    # main program part 2
+    part2(data)
     
     # print solution
     if DEBUG:
@@ -130,6 +199,8 @@ if __name__ == '__main__':
         ic(OUTER_TREES_COUNT)
         ic(data)
         ic(data_bool)
+        ic(data_score)
+        
     print("sol1: ", sol1)
     print("sol2: ", sol2)
     

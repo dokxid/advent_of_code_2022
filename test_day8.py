@@ -1,5 +1,7 @@
 from unittest import TestCase
 from icecream import ic
+
+import constants
 from day8 import *
 
 
@@ -47,8 +49,6 @@ class Test(TestCase):
             self.fail()
         except AssertionError:
             self.assertEqual(1, 1)
-        else:
-            self.fail()
     
     def test_visible_trees(self):
         temp = [['3', '0', '3', '7', '3'],
@@ -61,3 +61,24 @@ class Test(TestCase):
         self.assertEqual([True, False, False, False, False], visible_trees(temp[2]))
         self.assertEqual([True, False, True, False, True], visible_trees(temp[3]))
         self.assertEqual([True, True, False, True, False], visible_trees(temp[4]))
+    
+    def test_part2_mock_1(self):
+        a = constants.parse_int("3233121201\n"
+                                "3312233140\n"
+                                "0231022311\n"
+                                "0332111144\n"
+                                "0313204121\n"
+                                "0101243404\n"
+                                "0323120343\n"
+                                "3202003444\n"
+                                "0213001022\n"
+                                "2142214121")
+        self.assertEqual(24, part2(a))
+        
+    def test_part2_mock_2(self):
+        a = constants.parse_int("30373\n"
+                                "25512\n"
+                                "65332\n"
+                                "33549\n"
+                                "35390")
+        self.assertEqual(8, part2(a))

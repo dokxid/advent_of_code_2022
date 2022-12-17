@@ -11,3 +11,10 @@ def open_file(a, debug):
 
 def sanitize(a: str) -> str:
     return a.replace('\n', '')
+
+
+def parse_int(a: str):
+    temp = a.split("\n")
+    for i in temp:
+        i = list(sanitize(i))
+    return temp
