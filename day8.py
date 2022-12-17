@@ -65,18 +65,21 @@ data_bool = []
 # ignores outer trees
 def visible_trees(a: list):
     temp_highest = 0
-    j = 0
+    j = []
     for i in range(a.__len__()):
         if int(a[i]) > temp_highest:
-            ic(int(a[i]))
             temp_highest = int(a[i])
-            j += 1
+            j.append(True)
+        else:
+            j.append(False)
     return j
 
 
-def mark_trees(a: int, b: list[bool]):
-    for i in range(a):
-        b[i] = True
+def mark_trees(a: list[bool], b: list[bool]):
+    assert a.__len__() == b.__len__()
+    for i in range(a.__len__()):
+        if a[i] is True:
+            b[i] = True
 
 
 if __name__ == '__main__':
