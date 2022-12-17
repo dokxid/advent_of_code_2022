@@ -89,13 +89,15 @@ def distance_trees(a: list) -> int:
     trees = a[1:]
     distance = 0
     highest = -1
-    ic(start_point, trees)
+    # ic(start_point, trees)
     
-    if start_point > trees[0]:
+    if start_point >= trees[0]:
         for i in trees:
             if i >= highest:
                 highest = i
                 distance += 1
+        if highest == trees[0]:
+            return trees.__len__()
     else:
         for i in trees:
             if i >= highest:
@@ -147,8 +149,8 @@ def part2(data_temp, direction=""):
             points_south = 1
             points_east = 1
             points_west = 1
-            ic("row: ", i + 1)
-            ic("col: ", j + 1)
+            # ic("row: ", i + 1)
+            # ic("col: ", j + 1)
             
             # get array north
             if direction != "E" and direction != "S" and direction != "W":
@@ -157,7 +159,7 @@ def part2(data_temp, direction=""):
                 for k in range(i + 1):
                     cardinal_vert = [item[j] for item in data_temp]
                     cardinal.append(cardinal_vert[i - k])
-                ic("north", cardinal)
+                # ic("north", cardinal)
                 points_north = distance_trees(cardinal)
             
             # get array south
@@ -167,7 +169,7 @@ def part2(data_temp, direction=""):
                 for k in range(i, data_temp.__len__()):
                     cardinal_vert = [item[j] for item in data_temp]
                     cardinal.append(cardinal_vert[k])
-                ic("south", cardinal)
+                # ic("south", cardinal)
                 points_south = distance_trees(cardinal)
             
             # get array east
@@ -176,7 +178,7 @@ def part2(data_temp, direction=""):
                 cardinal_bool = [False] * (data_temp.__len__() - j)
                 for k in range(j, data_temp.__len__()):
                     cardinal.append(row[k])
-                ic("east", cardinal)
+                # ic("east", cardinal)
                 points_east = distance_trees(cardinal)
             
             # get array west
@@ -186,10 +188,10 @@ def part2(data_temp, direction=""):
                 for k in range(j + 1):
                     cardinal.append(row[j - k])
                 cardinal.reverse()
-                ic("west", cardinal)
+                # ic("west", cardinal)
                 points_west = distance_trees(cardinal)
             
-            ic(points_north, points_east, points_south, points_west)
+            # ic(points_north, points_east, points_south, points_west)
             data_score[i][j] = points_north * points_west * points_east * points_south
     for i in data_score:
         if max(i) > sol_temp:

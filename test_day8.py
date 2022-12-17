@@ -64,6 +64,91 @@ class Test(TestCase):
         self.assertEqual([True, False, True, False, True], visible_trees(temp[3]))
         self.assertEqual([True, True, False, True, False], visible_trees(temp[4]))
     
+    def test_part2_mock_2(self):
+        a = constants.parse_int("30373\n"
+                                "25512\n"
+                                "65332\n"
+                                "33549\n"
+                                "35390")
+        self.assertEqual(8, part2(a)[0])
+    
+    def test_part2_mock_2_north(self):
+        a = constants.parse_int("30373\n"
+                                "25512\n"
+                                "65332\n"
+                                "33549\n"
+                                "35390")
+        ic(part2(a, "N"))
+    
+    def test_part2_mock_2_east(self):
+        a = constants.parse_int("30373\n"
+                                "25512\n"
+                                "65332\n"
+                                "33549\n"
+                                "35390")
+        ic(part2(a, "E"))
+    
+    def test_part2_mock_2_south(self):
+        a = constants.parse_int("30373\n"
+                                "25512\n"
+                                "65332\n"
+                                "33549\n"
+                                "35390")
+        ic(part2(a, "S"))
+    
+    def test_part2_mock_2_west(self):
+        a = constants.parse_int("30373\n"
+                                "25512\n"
+                                "65332\n"
+                                "33549\n"
+                                "35390")
+        ic(part2(a, "W"))
+    
+    def test_part2_mock_3(self):
+        a = constants.parse_int("30373\n"
+                                "25512\n"
+                                "65332\n"
+                                "33349\n"
+                                "35390")
+
+
+class TestDistance(TestCase):
+
+    def test_distance_trees(self):
+        a = [1, 2, 3, 4, 5]
+        self.assertEqual(4, distance_trees(a))
+
+    def test_distance_one(self):
+        a = [2]
+        self.assertEqual(0, distance_trees(a))
+
+    def test_distance_two(self):
+        a = [2, 3]
+        self.assertEqual(1, distance_trees(a))
+
+    def test_distance_three(self):
+        a = [2, 3, 4]
+        self.assertEqual(2, distance_trees(a))
+
+    def test_distance_trees_same_lower_height(self):
+        a = [1, 2, 2, 2, 2]
+        self.assertEqual(1, distance_trees(a))
+
+    def test_distance_trees_same_higher_height(self):
+        a = [3, 2, 2, 2, 2]
+        self.assertEqual(4, distance_trees(a))
+        
+    def test_distance_trees_reverse(self):
+        a = [5, 4, 3, 2, 1]
+        self.assertEqual(4, distance_trees(a))
+        
+    def test_distance_start_equals_max(self):
+        a = [5, 5, 1, 2]
+        self.assertEqual(3, distance_trees(a))
+        
+        
+class SlowTest(TestCase):
+    
     def test_part2_mock_distance(self):
         a = constants.parse_int("1233121201\n"
                                 "2312233142\n"
@@ -141,50 +226,3 @@ class Test(TestCase):
                                 "2142214121")
         ic(part2(a, "W"))
         # todo transpose
-    
-    def test_part2_mock_2(self):
-        a = constants.parse_int("30373\n"
-                                "25512\n"
-                                "65332\n"
-                                "33549\n"
-                                "35390")
-        self.assertEqual(8, part2(a)[0])
-    
-    def test_part2_mock_3(self):
-        a = constants.parse_int("30373\n"
-                                "25512\n"
-                                "65332\n"
-                                "33349\n"
-                                "35390")
-
-
-class TestDistance(TestCase):
-
-    def test_distance_trees(self):
-        a = [1, 2, 3, 4, 5]
-        self.assertEqual(4, distance_trees(a))
-
-    def test_distance_one(self):
-        a = [2]
-        self.assertEqual(0, distance_trees(a))
-
-    def test_distance_two(self):
-        a = [2, 3]
-        self.assertEqual(1, distance_trees(a))
-
-    def test_distance_three(self):
-        a = [2, 3, 4]
-        self.assertEqual(2, distance_trees(a))
-
-    def test_distance_trees_same_lower_height(self):
-        a = [1, 2, 2, 2, 2]
-        self.assertEqual(1, distance_trees(a))
-
-    def test_distance_trees_same_higher_height(self):
-        a = [3, 2, 2, 2, 2]
-        self.assertEqual(4, distance_trees(a))
-        
-    def test_distance_trees_reverse(self):
-        a = [5, 4, 3, 2, 1]
-        self.assertEqual(1, distance_trees(a))
-        
