@@ -1,4 +1,5 @@
 from unittest import TestCase
+from numpy import transpose
 from unittest import skip
 from icecream import ic
 
@@ -126,6 +127,20 @@ class Test(TestCase):
                                 "9213001029\n"
                                 "2142214121")
         ic(part2(a, "W"))
+    
+    def test_part2_transpose(self):
+        a = constants.parse_int("1233121201\n"
+                                "2312233142\n"
+                                "3231022313\n"
+                                "4332111144\n"
+                                "5313204125\n"
+                                "6101243406\n"
+                                "7323120347\n"
+                                "8202003448\n"
+                                "9213001029\n"
+                                "2142214121")
+        ic(part2(a, "W"))
+        # todo transpose
     
     def test_part2_mock_2(self):
         a = constants.parse_int("30373\n"
