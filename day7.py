@@ -19,6 +19,9 @@ text = file.readlines()
 line_count = text.__len__()
 
 # var
+AVAILABLE_SPACE = 70000000
+UPDATE_SPACE = 30000000
+needed_space = 0
 sol1 = 0
 sol2 = 0
 data = {}
@@ -53,6 +56,9 @@ class Directory:
     def add_dir(self, dir_name: str):
         self.dirs.append(Directory(dir_name, parent=self))
         
+    def __getitem__(self):
+        return self.size
+    
     def __str__(self):
         if self.parent == 0:
             return "/"
@@ -60,7 +66,7 @@ class Directory:
             return self.parent.__str__() + self.name + "/"
         
     def __repr__(self):
-        return "(" + str(self.get_size()) + ", " + str(self.get_size() < 100000) + ")"
+        return str(self.get_size())
         
 
 @dataclass
@@ -119,8 +125,21 @@ if __name__ == '__main__':
             
     
     # main program part 2
-    for line in range(line_count):
-        sol2 += 1  # TODO
+    temp = data['/'].size
+    ic(data['/'].size)
+    needed_space = data['/'].get_size()
+    ic(needed_space)
+    ic(data.items())
+    sorted_data = sorted(data.items(), key=lambda item: item[1].get_size())
+    ic(sorted_data)
+    for i in sorted_data:
+        ic(i)
+        to_delete = -(AVAILABLE_SPACE - needed_space - UPDATE_SPACE)
+        ic(needed_space)
+        if i[1].get_size() > to_delete:
+            ic(i[0])
+            sol2 = (i[0], i[1].get_size())
+            break
     
     # print solution
     if DEBUG:
