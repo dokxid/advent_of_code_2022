@@ -80,6 +80,15 @@ def mark_trees(a: list[bool], b: list[bool]):
     for i in range(a.__len__()):
         if a[i] is True:
             b[i] = True
+            
+            
+def count_true(a: list[list[bool]]):
+    k = 0
+    for i in a:
+        for j in i:
+            if j:
+                k += 1
+    return k
 
 
 if __name__ == '__main__':

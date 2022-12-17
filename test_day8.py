@@ -5,6 +5,14 @@ from day8 import *
 
 class Test(TestCase):
     
+    def test_count_true(self):
+        temp_bool = [[True, False, False, False, False],
+                     [True, True, False, False, False],
+                     [True, True, True, False, False],
+                     [True, True, False, False, False],
+                     [True, False, False, False, False]]
+        self.assertEqual(9, count_true(temp_bool))
+    
     def test_mark_trees(self):
         temp_bool = [[False, False, False, False, False],
                      [False, False, False, False, False],
