@@ -44,7 +44,7 @@ import constants
 # constants
 DAY = 8
 PART = 1
-DEBUG_DATA = True
+DEBUG_DATA = False
 DEBUG = True
 if not DEBUG:
     ic.disable()
@@ -64,7 +64,7 @@ data_bool = []
 
 # ignores outer trees
 def visible_trees(a: list):
-    temp_highest = 0
+    temp_highest = -1
     j = []
     for i in range(a.__len__()):
         if int(a[i]) > temp_highest:
@@ -75,17 +75,20 @@ def visible_trees(a: list):
     return j
 
 
-def mark(op: list[bool], mut: list[bool], index, col=True, rev=False):
-    assert op.__len__() == mut.__len__()
+def mark(op: list[bool], mut: list[list[bool]], index, col=False, rev=False) -> None:
+    assert op.__len__() == mut[index].__len__()
     # TODO: implement index, col
     if rev:
         op.reverse()
     for i in range(op.__len__()):
         if op[i] is True:
-            mut[i] = True
+            if col:
+                mut[i][index] = True
+            else:
+                mut[index][i] = True
             
             
-def count_true(a: list[list[bool]]):
+def count_true(a: list[list[bool]]) -> int:
     k = 0
     for i in a:
         for j in i:
@@ -112,13 +115,14 @@ if __name__ == '__main__':
                 vert = [k[j] for k in data]
                 temp_vert = vert[:]
                 temp_vert.reverse()
-                mark(visible_trees(vert), data_bool[i])
-                mark(visible_trees(temp_vert), data_bool[i], rev=True)
-        # temp = data[i][:]
-        # temp.reverse()
-        # mark(visible_trees(data[i]), data_bool[i])
-        # mark(visible_trees(temp), data_bool[i], rev=True)
+                mark(visible_trees(vert), data_bool, j, col=True)
+                mark(visible_trees(temp_vert), data_bool, j, col=True, rev=True)
+        temp = data[i][:]
+        temp.reverse()
+        mark(visible_trees(data[i]), data_bool, i)
+        mark(visible_trees(temp), data_bool, i, rev=True)
     ic(data)
+    sol1 = count_true(data_bool)
     
     # print solution
     if DEBUG:
