@@ -75,11 +75,14 @@ def visible_trees(a: list):
     return j
 
 
-def mark_trees(a: list[bool], b: list[bool]):
-    assert a.__len__() == b.__len__()
-    for i in range(a.__len__()):
-        if a[i] is True:
-            b[i] = True
+def mark(op: list[bool], mut: list[bool], index, col=True, rev=False):
+    assert op.__len__() == mut.__len__()
+    # TODO: implement index, col
+    if rev:
+        op.reverse()
+    for i in range(op.__len__()):
+        if op[i] is True:
+            mut[i] = True
             
             
 def count_true(a: list[list[bool]]):
@@ -102,9 +105,20 @@ if __name__ == '__main__':
             data_bool[line].append(False)
         
     # main program part 1
+    ic(data)
     for i in range(line_count):
-        ic(data[i])
-        ic(visible_trees(data[i]))
+        if i == 0:
+            for j in range(data[i].__len__()):
+                vert = [k[j] for k in data]
+                temp_vert = vert[:]
+                temp_vert.reverse()
+                mark(visible_trees(vert), data_bool[i])
+                mark(visible_trees(temp_vert), data_bool[i], rev=True)
+        # temp = data[i][:]
+        # temp.reverse()
+        # mark(visible_trees(data[i]), data_bool[i])
+        # mark(visible_trees(temp), data_bool[i], rev=True)
+    ic(data)
     
     # print solution
     if DEBUG:

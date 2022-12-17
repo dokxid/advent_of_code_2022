@@ -122,8 +122,6 @@ if __name__ == '__main__':
         # else:
             # ic("NOT adding", data.get(directory).name, data.get(directory).get_size())
             
-            
-    
     # main program part 2
     temp = data['/'].size
     ic(data['/'].size)

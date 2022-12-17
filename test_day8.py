@@ -13,27 +13,37 @@ class Test(TestCase):
                      [True, False, False, False, False]]
         self.assertEqual(9, count_true(temp_bool))
     
-    def test_mark_trees(self):
+    def test_mark(self):
         temp_bool = [[False, False, False, False, False],
                      [False, False, False, False, False],
                      [False, False, False, False, False],
                      [False, False, False, False, False],
                      [False, False, False, False, False]]
-        mark_trees([True, False, False, False, False], temp_bool[0])
-        mark_trees([True, True, False, False, False], temp_bool[1])
-        mark_trees([True, True, True, False, False], temp_bool[2])
-        mark_trees([True, True, False, False, False], temp_bool[3])
-        mark_trees([True, False, False, False, False], temp_bool[4])
+        mark([True, False, False, False, False], temp_bool[0])
+        mark([True, True, False, False, False], temp_bool[1])
+        mark([True, True, True, False, False], temp_bool[2])
+        mark([True, True, False, False, False], temp_bool[3])
+        mark([True, False, False, False, False], temp_bool[4])
         self.assertTrue(temp_bool == [[True, False, False, False, False],
                                       [True, True, False, False, False],
                                       [True, True, True, False, False],
                                       [True, True, False, False, False],
                                       [True, False, False, False, False]])
     
-    def test_mark_trees_exc(self):
+    def test_reverse(self):
+        temp_data = [['3', '0', '4', '7', '3', '2', '1']]
+        temp_data_bool = [[False, False, False, False, False, False, False]]
+        for i in range(temp_data.__len__()):
+            temp = temp_data[i][:]
+            temp.reverse()
+            mark(visible_trees(temp_data[i]), temp_data_bool[i])
+            mark(visible_trees(temp), temp_data_bool[i], rev=True)
+        self.assertEqual([[True, False, True, True, True, True, True]], temp_data_bool)
+    
+    def test_mark_exc(self):
         try:
             temp_bool = [False, False, False, False]
-            mark_trees([True, False, False, False, False], temp_bool)
+            mark([True, False, False, False, False], temp_bool)
             self.fail()
         except AssertionError:
             self.assertEqual(1, 1)
