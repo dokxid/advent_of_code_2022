@@ -43,8 +43,8 @@ import constants
 
 # constants
 DAY = 8
-PART = 1
-DEBUG_DATA = True
+PART = 2
+DEBUG_DATA = False
 DEBUG = True
 if not DEBUG:
     ic.disable()
@@ -75,6 +75,38 @@ def visible_trees(a: list) -> list[bool]:
     return j
 
 
+def distance_trees(a: list) -> int:
+    
+    # sanitize list[str] to list[int]
+    if a[0].__class__ == str:
+        a = list(map(int, a))
+    
+    # catch edge
+    if a.__len__() == 1:
+        return 0
+    
+    start_point = a[0]
+    trees = a[1:]
+    distance = 0
+    highest = -1
+    ic(start_point, trees)
+    
+    if start_point > trees[0]:
+        for i in trees:
+            if i >= highest:
+                highest = i
+                distance += 1
+    else:
+        for i in trees:
+            if i >= highest:
+                highest = i
+                distance += 1
+        if highest == trees[0]:
+            return 1
+    
+    return distance
+
+
 def mark(op: list[bool], mut: list[list[bool]], index, col=False, rev=False) -> None:
     assert op.__len__() == mut[index].__len__()
     # TODO: implement index, col
@@ -102,7 +134,7 @@ def count_true(a: list) -> int:
     return k
 
 
-def part2(data_temp):
+def part2(data_temp, direction=""):
     sol_temp = 0
     data_score = []
     for i in range(data_temp.__len__()):
@@ -119,49 +151,50 @@ def part2(data_temp):
             ic("col: ", j + 1)
             
             # get array north
-            cardinal.clear()
-            cardinal_bool = [False] * (i + 1)
-            for k in range(i + 1):
-                cardinal_vert = [item[j] for item in data_temp]
-                cardinal.append(cardinal_vert[i - k])
-            cardinal[0] = -1
-            ic("north", cardinal)
-            points_north = count_true(visible_trees(cardinal))
+            if direction != "E" and direction != "S" and direction != "W":
+                cardinal.clear()
+                cardinal_bool = [False] * (i + 1)
+                for k in range(i + 1):
+                    cardinal_vert = [item[j] for item in data_temp]
+                    cardinal.append(cardinal_vert[i - k])
+                ic("north", cardinal)
+                points_north = distance_trees(cardinal)
             
             # get array south
-            cardinal.clear()
-            cardinal_bool = [False] * (data_temp.__len__() - j)
-            for k in range(i, data_temp.__len__()):
-                cardinal_vert = [item[j] for item in data_temp]
-                cardinal.append(cardinal_vert[k])
-            cardinal[0] = -1
-            ic("south", cardinal)
-            points_south = count_true(visible_trees(cardinal))
+            if direction != "E" and direction != "N" and direction != "W":
+                cardinal.clear()
+                cardinal_bool = [False] * (data_temp.__len__() - j)
+                for k in range(i, data_temp.__len__()):
+                    cardinal_vert = [item[j] for item in data_temp]
+                    cardinal.append(cardinal_vert[k])
+                ic("south", cardinal)
+                points_south = distance_trees(cardinal)
             
             # get array east
-            cardinal.clear()
-            cardinal_bool = [False] * (data_temp.__len__() - j)
-            for k in range(j, data_temp.__len__()):
-                cardinal.append(row[k])
-            cardinal[0] = -1
-            ic("east", cardinal)
-            points_east = count_true(visible_trees(cardinal))
+            if direction != "N" and direction != "N" and direction != "W":
+                cardinal.clear()
+                cardinal_bool = [False] * (data_temp.__len__() - j)
+                for k in range(j, data_temp.__len__()):
+                    cardinal.append(row[k])
+                ic("east", cardinal)
+                points_east = distance_trees(cardinal)
             
             # get array west
-            cardinal.clear()
-            cardinal_bool = [False] * (j + 1)
-            for k in range(j + 1):
-                cardinal.append(row[j - k])
-            cardinal.reverse()
-            cardinal[0] = -1
-            ic("west", cardinal)
-            points_west = count_true(visible_trees(cardinal))
+            if direction != "E" and direction != "N" and direction != "N":
+                cardinal.clear()
+                cardinal_bool = [False] * (j + 1)
+                for k in range(j + 1):
+                    cardinal.append(row[j - k])
+                cardinal.reverse()
+                ic("west", cardinal)
+                points_west = distance_trees(cardinal)
             
             ic(points_north, points_east, points_south, points_west)
             data_score[i][j] = points_north * points_west * points_east * points_south
     for i in data_score:
         if max(i) > sol_temp:
             sol_temp = max(i)
+    ic(data_score)
     return sol_temp
     
 
@@ -191,7 +224,7 @@ if __name__ == '__main__':
     sol1 = count_true(data_bool)
     
     # main program part 2
-    part2(data)
+    sol2 = part2(data)
     
     # print solution
     if DEBUG:
@@ -199,7 +232,6 @@ if __name__ == '__main__':
         ic(OUTER_TREES_COUNT)
         ic(data)
         ic(data_bool)
-        ic(data_score)
         
     print("sol1: ", sol1)
     print("sol2: ", sol2)

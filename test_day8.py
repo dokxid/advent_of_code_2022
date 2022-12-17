@@ -1,4 +1,5 @@
 from unittest import TestCase
+from unittest import skip
 from icecream import ic
 
 import constants
@@ -62,19 +63,19 @@ class Test(TestCase):
         self.assertEqual([True, False, True, False, True], visible_trees(temp[3]))
         self.assertEqual([True, True, False, True, False], visible_trees(temp[4]))
     
-    def test_part2_mock_1(self):
-        a = constants.parse_int("3233121201\n"
-                                "3312233140\n"
-                                "0231022311\n"
-                                "0332111144\n"
-                                "0313204121\n"
-                                "0101243404\n"
-                                "0323120343\n"
-                                "3202003444\n"
-                                "0213001022\n"
+    def test_part2_mock_distance(self):
+        a = constants.parse_int("1233121201\n"
+                                "2312233142\n"
+                                "3231022313\n"
+                                "4332111144\n"
+                                "5313204125\n"
+                                "6101243406\n"
+                                "7323120347\n"
+                                "8202003448\n"
+                                "9213001029\n"
                                 "2142214121")
-        self.assertEqual(24, part2(a))
-        
+        self.assertEqual(24, part2(a, direction="N"))
+    
     def test_part2_mock_2(self):
         a = constants.parse_int("30373\n"
                                 "25512\n"
@@ -82,3 +83,42 @@ class Test(TestCase):
                                 "33549\n"
                                 "35390")
         self.assertEqual(8, part2(a))
+    
+    def test_part2_mock_3(self):
+        a = constants.parse_int("30373\n"
+                                "25512\n"
+                                "65332\n"
+                                "33349\n"
+                                "35390")
+        self.assertEqual(8, part2(a))
+
+
+class Test_Distance(TestCase):
+
+    def test_distance_trees(self):
+        a = [1, 2, 3, 4, 5]
+        self.assertEqual(4, distance_trees(a))
+
+    def test_distance_one(self):
+        a = [2]
+        self.assertEqual(0, distance_trees(a))
+
+    def test_distance_two(self):
+        a = [2, 3]
+        self.assertEqual(1, distance_trees(a))
+
+    def test_distance_three(self):
+        a = [2, 3, 4]
+        self.assertEqual(2, distance_trees(a))
+
+    def test_distance_trees_same_lower_height(self):
+        a = [1, 2, 2, 2, 2]
+        self.assertEqual(1, distance_trees(a))
+
+    def test_distance_trees_same_higher_height(self):
+        a = [3, 2, 2, 2, 2]
+        self.assertEqual(4, distance_trees(a))
+        
+    def test_distance_trees_reverse(self):
+        a = [5, 4, 3, 2, 1]
+        self.assertEqual(1, distance_trees(a))
