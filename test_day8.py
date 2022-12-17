@@ -74,7 +74,20 @@ class Test(TestCase):
                                 "8202003448\n"
                                 "9213001029\n"
                                 "2142214121")
-        self.assertEqual(24, part2(a, direction="N"))
+        self.assertEqual(24, part2(a, direction="N")[0])
+    
+    def test_part2_north(self):
+        a = constants.parse_int("1233121201\n"
+                                "2312233142\n"
+                                "3231022313\n"
+                                "4332111144\n"
+                                "5313204125\n"
+                                "6101243406\n"
+                                "7323120347\n"
+                                "8202003448\n"
+                                "9213001029\n"
+                                "2142214121")
+        self.assertEqual(24, part2(a, direction="N")[0])
     
     def test_part2_mock_2(self):
         a = constants.parse_int("30373\n"
@@ -82,7 +95,7 @@ class Test(TestCase):
                                 "65332\n"
                                 "33549\n"
                                 "35390")
-        self.assertEqual(8, part2(a))
+        self.assertEqual(8, part2(a)[0])
     
     def test_part2_mock_3(self):
         a = constants.parse_int("30373\n"
@@ -90,10 +103,10 @@ class Test(TestCase):
                                 "65332\n"
                                 "33349\n"
                                 "35390")
-        self.assertEqual(8, part2(a))
+        self.assertEqual(8, part2(a)[0])
 
 
-class Test_Distance(TestCase):
+class TestDistance(TestCase):
 
     def test_distance_trees(self):
         a = [1, 2, 3, 4, 5]
@@ -122,3 +135,4 @@ class Test_Distance(TestCase):
     def test_distance_trees_reverse(self):
         a = [5, 4, 3, 2, 1]
         self.assertEqual(1, distance_trees(a))
+        

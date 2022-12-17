@@ -44,7 +44,7 @@ import constants
 # constants
 DAY = 8
 PART = 2
-DEBUG_DATA = False
+DEBUG_DATA = True
 DEBUG = True
 if not DEBUG:
     ic.disable()
@@ -195,7 +195,7 @@ def part2(data_temp, direction=""):
         if max(i) > sol_temp:
             sol_temp = max(i)
     ic(data_score)
-    return sol_temp
+    return sol_temp, data_score
     
 
 if __name__ == '__main__':
@@ -224,7 +224,7 @@ if __name__ == '__main__':
     sol1 = count_true(data_bool)
     
     # main program part 2
-    sol2 = part2(data)
+    sol2 = part2(data)[0]
     
     # print solution
     if DEBUG:
