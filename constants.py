@@ -13,6 +13,10 @@ def sanitize(a: str) -> str:
     return a.replace('\n', '')
 
 
+def sanitize_list_str_to_int(a: list[str]) -> list[int]:
+    return list(map(int, a))
+
+
 def parse_int(a: str):
     temp = a.split("\n")
     for i in temp:
