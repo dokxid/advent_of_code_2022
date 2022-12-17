@@ -74,7 +74,6 @@ class Test(TestCase):
                                 "8202003448\n"
                                 "9213001029\n"
                                 "2142214121")
-        self.assertEqual(24, part2(a, direction="N")[0])
     
     def test_part2_north(self):
         a = constants.parse_int("1233121201\n"
@@ -87,7 +86,46 @@ class Test(TestCase):
                                 "8202003448\n"
                                 "9213001029\n"
                                 "2142214121")
-        self.assertEqual(24, part2(a, direction="N")[0])
+        ic(part2(a, "N"))
+    
+    def test_part2_east(self):
+        a = constants.parse_int("1233121201\n"
+                                "2312233142\n"
+                                "3231022313\n"
+                                "4332111144\n"
+                                "5313204125\n"
+                                "6101243406\n"
+                                "7323120347\n"
+                                "8202003448\n"
+                                "9213001029\n"
+                                "2142214121")
+        ic(part2(a, "E"))
+    
+    def test_part2_south(self):
+        a = constants.parse_int("1233121201\n"
+                                "2312233142\n"
+                                "3231022313\n"
+                                "4332111144\n"
+                                "5313204125\n"
+                                "6101243406\n"
+                                "7323120347\n"
+                                "8202003448\n"
+                                "9213001029\n"
+                                "2142214121")
+        ic(part2(a, "S"))
+    
+    def test_part2_west(self):
+        a = constants.parse_int("1233121201\n"
+                                "2312233142\n"
+                                "3231022313\n"
+                                "4332111144\n"
+                                "5313204125\n"
+                                "6101243406\n"
+                                "7323120347\n"
+                                "8202003448\n"
+                                "9213001029\n"
+                                "2142214121")
+        ic(part2(a, "W"))
     
     def test_part2_mock_2(self):
         a = constants.parse_int("30373\n"
@@ -103,7 +141,6 @@ class Test(TestCase):
                                 "65332\n"
                                 "33349\n"
                                 "35390")
-        self.assertEqual(8, part2(a)[0])
 
 
 class TestDistance(TestCase):
