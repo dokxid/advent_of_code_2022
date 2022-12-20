@@ -226,3 +226,4 @@ class SlowTest(TestCase):
                                 "2142214121")
         ic(part2(a, "W"))
         # todo transpose
+        
