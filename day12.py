@@ -30,7 +30,7 @@ class Parser:
         t = f.readlines()
         t = list(map(sanitize, t))
         return t
-    
+
 
 def part_1(f):
     
@@ -46,10 +46,12 @@ def part_1(f):
         f[line] = list(map(ord, f[line]))
     
     # store paths
-    path = Tree()
+    paths = Tree()
+    paths.ROOT = e
     
     # return and debug
     ic(field)
+    print(paths.show())
     return 0
 
 
