@@ -32,6 +32,18 @@ class Parser:
         return t
 
 
+def eval_elevation(f: list[list[int]], debug=True):
+    evaluation = [[False, False, False],
+                  [False, False, False],
+                  [False, False, False]]
+    evaluation[1-1][1] = abs(f[1][1]-f[1-1][1]) <= 1  # case up
+    evaluation[1+1][1] = abs(f[1][1]-f[1+1][1]) <= 1  # case down
+    evaluation[1][1-1] = abs(f[1][1]-f[1][1-1]) <= 1  # case left
+    evaluation[1][1+1] = abs(f[1][1]-f[1][1+1]) <= 1  # case right
+    return evaluation
+    
+
+
 def part_1(f):
     
     # find S
