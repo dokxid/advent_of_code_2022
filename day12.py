@@ -33,21 +33,22 @@ class Parser:
 
 
 def eval_elevation(f: list[list[int]], debug=True):
-    evaluation = [[False, False, False],
-                  [False, False, False],
-                  [False, False, False]]
-    evaluation[1 - 1][1] = abs(f[1][1] - f[1 - 1][1]) <= 1  # case up
-    evaluation[1 + 1][1] = abs(f[1][1] - f[1 + 1][1]) <= 1  # case down
-    evaluation[1][1 - 1] = abs(f[1][1] - f[1][1 - 1]) <= 1  # case left
-    evaluation[1][1 + 1] = abs(f[1][1] - f[1][1 + 1]) <= 1  # case right
+    evaluation = {"up": abs(f[1][1] - f[1 - 1][1]) <= 1,
+                  "down": abs(f[1][1] - f[1 + 1][1]) <= 1,
+                  "left": abs(f[1][1] - f[1][1 - 1]) <= 1,
+                  "right": abs(f[1][1] - f[1][1 + 1]) <= 1}
     if debug: print("+ can move up? {}\n"
                     "+ can move down? {}\n"
                     "+ can move left? {}\n"
-                    "+ can move right? {}\n".format(evaluation[1 - 1][1],
-                                                    evaluation[1 + 1][1],
-                                                    evaluation[1][1 - 1],
-                                                    evaluation[1][1 + 1]))
+                    "+ can move right? {}\n".format(evaluation["up"],
+                                                    evaluation["down"],
+                                                    evaluation["left"],
+                                                    evaluation["right"]))
     return evaluation
+
+
+def create_path(tree: Tree, eval):
+    tree.create_node()
 
 
 def part_1(f):
@@ -66,7 +67,7 @@ def part_1(f):
     if DEBUG: print("\n++ looking for neighbors for {}".format(s))
     elev = eval_elevation(get_neighbors(f, s[0], s[1]), DEBUG)
     paths = Tree()
-    paths.ROOT = e
+    paths.create_node(e)
     
     # return and debug
     ic(field)
