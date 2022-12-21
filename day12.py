@@ -62,19 +62,18 @@ def eval_create_path(f):
             temp_graph = []
             elev = eval_elevation(get_neighbors(f, r_idx, c_idx), debug=False)
             if elev["up"]:
-                temp_graph.append((r_idx-1, c_idx))
+                temp_graph.append((r_idx - 1, c_idx))
             if elev["down"]:
-                temp_graph.append((r_idx+1, c_idx))
+                temp_graph.append((r_idx + 1, c_idx))
             if elev["left"]:
-                temp_graph.append((r_idx, c_idx-1))
+                temp_graph.append((r_idx, c_idx - 1))
             if elev["right"]:
-                temp_graph.append((r_idx, c_idx+1))
+                temp_graph.append((r_idx, c_idx + 1))
             g.update({(r_idx, c_idx): temp_graph})
     return g
 
 
 def dijk(g: dict, s, e):
-    
     # initialize distance dict
     dist = {}
     for key in g.keys():
@@ -82,14 +81,12 @@ def dijk(g: dict, s, e):
             dist.update({key: 0})
         else:
             dist.update({key: math.inf})
-            
     
     # dijkstra time
     priority = 0
     pq = PriorityQueue()
     jobs = {0: s}
     pq.put(0)
-    
     while not pq.empty():
         old = jobs[pq.get()]
         new = g[old]
@@ -102,18 +99,15 @@ def dijk(g: dict, s, e):
                 pq.put(priority)
                 jobs.update({priority: p})
     
-    # debug
-    # ic(dist)
-    # ic(dist[e])
+    # return
     return dist
-    
+
 
 def ord_new(a):
-    return ord(a)-96
+    return ord(a) - 96
 
 
 def part_1(f):
-    
     # var
     graph = {}
     
