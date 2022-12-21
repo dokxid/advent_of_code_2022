@@ -1,11 +1,15 @@
 # imports
+import math
+import traceback
+from queue import PriorityQueue
+
 from icecream import ic
 from treelib.tree import *
 from constants import *
 
 # constants
 DAY = 12
-DEBUG_DATA = True
+DEBUG_DATA = False
 DEBUG = True
 if not DEBUG:
     ic.disable()
@@ -13,8 +17,8 @@ if not DEBUG:
 # var
 sol1 = 0
 sol2 = 0
-data = {}
 field = []
+tree = Tree()
 
 
 class Parser:
@@ -47,11 +51,72 @@ def eval_elevation(f: list[list[int]], debug=True):
     return evaluation
 
 
-def create_path(tree: Tree, eval):
-    tree.create_node()
+def create_path(t: Tree, pos_old, pos_new, direction):
+    t.create_node(pos_new, pos_new, parent=pos_old)
+
+
+def eval_create_path(f):
+    g = {}
+    for r_idx, r in enumerate(f):
+        for c_idx, c in enumerate(r):
+            temp_graph = []
+            elev = eval_elevation(get_neighbors(f, r_idx, c_idx), debug=False)
+            if elev["up"]:
+                temp_graph.append((r_idx-1, c_idx))
+            if elev["down"]:
+                temp_graph.append((r_idx+1, c_idx))
+            if elev["left"]:
+                temp_graph.append((r_idx, c_idx-1))
+            if elev["right"]:
+                temp_graph.append((r_idx, c_idx+1))
+            g.update({(r_idx, c_idx): temp_graph})
+    return g
+
+
+def dijk(g: dict, s, e):
+    
+    # initialize distance dict
+    dist = {}
+    for key in g.keys():
+        if key == s:
+            dist.update({key: 0})
+        else:
+            dist.update({key: math.inf})
+            
+    
+    # dijkstra time
+    priority = 0
+    pq = PriorityQueue()
+    jobs = {0: s}
+    pq.put(0)
+    
+    while not pq.empty():
+        old = jobs[pq.get()]
+        new = g[old]
+        for p in new:
+            if p == "END":
+                break
+            if dist[p] > dist[old] + 1:
+                dist[p] = dist[old] + 1
+                priority += 1
+                pq.put(priority)
+                jobs.update({priority: p})
+    
+    # debug
+    # ic(dist)
+    # ic(dist[e])
+    return dist
+    
+
+def ord_new(a):
+    return ord(a)-96
 
 
 def part_1(f):
+    
+    # var
+    graph = {}
+    
     # find S
     s = find_char('S', f, DEBUG)
     e = find_char('E', f, DEBUG)
@@ -61,17 +126,23 @@ def part_1(f):
     f[s[0]] = f[s[0]].replace('S', 'a')
     f[e[0]] = f[e[0]].replace('E', 'z')
     for line in range(len(f)):
-        f[line] = list(map(ord, f[line]))
+        f[line] = list(map(ord_new, f[line]))
     
     # store paths
-    if DEBUG: print("\n++ looking for neighbors for {}".format(s))
-    elev = eval_elevation(get_neighbors(f, s[0], s[1]), DEBUG)
-    paths = Tree()
-    paths.create_node(e)
+    tree.create_node("START" + s.__str__(), s)
+    graph = eval_create_path(f)
+    graph.update({e: ["END"]})
+    distance = dijk(graph, s, e)
+    distance_field = []
+    for r in range(len(f)):
+        distance_field.append([])
+        for c in range(len(f[0])):
+            distance_field[r].append(distance[(r, c)])
+    ic(distance[e])
+    ic(distance_field)
+    ic(f)
     
     # return and debug
-    ic(field)
-    print(paths.show())
     return 0
 
 

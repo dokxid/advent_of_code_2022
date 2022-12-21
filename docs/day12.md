@@ -11,20 +11,22 @@ You'd like to reach E, but to save energy, you should do it in as few steps as p
 For example:
 
 ```
-Sabqponm
-abcryxxl
-accszExk
-acctuvwj
-abdefghi
+  01234567
+0 Sabqponm
+1 abcryxxl
+2 accszExk
+3 acctuvwj
+4 abdefghi
 ```
 Here, you start in the top-left corner; your goal is near the middle. You could start by moving down or right, but eventually you'll need to head toward the e at the bottom. From there, you can spiral around to the goal:
 
 ```
-v..v<<<<
->v.vv<<^
-.>vv>E^^
-..v>>>^^
-..>>>>>^
+  01234567
+0 v..v<<<<
+1 >v.vv<<^
+2 .>vv>E^^
+3 ..v>>>^^
+4 ..>>>>>^
 ```
 In the above diagram, the symbols indicate whether the path exits each square moving up (^), down (v), left (<), or right (>). The location that should get the best signal is still E, and . marks unvisited squares.
 

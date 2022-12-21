@@ -46,8 +46,8 @@ def get_neighbors(a: list[list], r_idx, c_idx, zero_as_bounds=True):
     for r_jdx, r in enumerate(range(r_idx - 1, r_idx + 2)):
         temp.append([])
         for c_jdx, c in enumerate(range(c_idx - 1, c_idx + 2)):
-            if zero_as_bounds and (r < 0 or c < 0):
-                temp[r_jdx].append(0)
+            if zero_as_bounds and ((r < 0 or c < 0) or (r > len(a)-1 or c > len(a[0])-1)):
+                temp[r_jdx].append(-1)
             else:
                 temp[r_jdx].append(a[r][c])
     return temp
