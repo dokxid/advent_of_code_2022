@@ -1,8 +1,7 @@
 # imports
 from icecream import ic
 from treelib.tree import *
-
-import constants
+from constants import *
 
 # constants
 DAY = 12
@@ -27,20 +26,17 @@ class Parser:
     @staticmethod
     def parse():
         # open file
-        f = constants.open_file(DAY, DEBUG_DATA)
+        f = open_file(DAY, DEBUG_DATA)
         t = f.readlines()
-        t = list(map(constants.sanitize, t))
+        t = list(map(sanitize, t))
         return t
-
+    
 
 def part_1():
     
     # find S
-    for r in field:
-        index = r.find("S")
-        if index != -1:
-            if DEBUG: print("found S in: {}, position {}".format(field.index(r), index))
-            break
+    s = find_char("S", field, DEBUG)
+    e = find_char("E", field, DEBUG)
     
     path = Tree()
     
