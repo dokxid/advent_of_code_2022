@@ -207,11 +207,9 @@ if __name__ == '__main__':
     for monkey in monkeys:
         monkey_modulo *= monkey.test
     
-    # main program part 1
-    # sol1 = part_1()
+    # main program
+    sol1 = part_1()
     sol2 = part_2()
-    
-    # main program part 2
     
     # print solution
     if DEBUG:
