@@ -35,7 +35,13 @@ class Parser:
 
 def part_1():
     
-    # logic
+    # find S
+    for r in field:
+        index = r.find("S")
+        if index != -1:
+            if DEBUG: print("found S in: {}, position {}".format(field.index(r), index))
+            break
+    
     path = Tree()
     
     # return
