@@ -1,4 +1,5 @@
-INPUTDIR = "input/"
+PATH = __file__.replace("constants.py", "")
+INPUTDIR = PATH + "/input/"
 
 
 def open_file(a, debug):
@@ -47,3 +48,7 @@ def karatsuba(x, y):
     
     # return
     return (z2 * 10 ** (2 * m2)) + ((z1 - z2 - z0) * 10 ** m2) + z0
+
+
+if __name__ == '__main__':
+    print(PATH)
