@@ -20,14 +20,14 @@ line_count = text.__len__()
 sol1 = 0
 sol2 = 0
 data = {}
-
+    
 
 class Parser:
     
     def __init__(self, text_parse: list[str]):
         self.text_parse = text_parse
         self.len = text_parse.__len__()
-    
+        
     def parse(self):
         return 0
 
@@ -38,7 +38,7 @@ def part_1():
 
 def part_2():
     return 0
-
+    
 
 if __name__ == '__main__':
     
@@ -59,3 +59,4 @@ if __name__ == '__main__':
     
     # end of program reached
     print("end of program reached")
+    
