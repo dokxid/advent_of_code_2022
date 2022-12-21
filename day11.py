@@ -7,8 +7,8 @@ import constants
 
 # constants
 DAY = 11
-DEBUG_DATA = True
-DEBUG = True
+DEBUG_DATA = False
+DEBUG = False
 if not DEBUG:
     ic.disable()
 
@@ -88,6 +88,10 @@ class Monkey:
     def relief(self):
         if self.items[0].__class__ == int:
             self.items[0] = self.items[0] // 3
+            
+    def modulo(self):
+        if self.items[0].__class__ == int:
+            self.items[0] = self.items[0] % monkey_modulo
     
     def action(self, relief=False):
         if DEBUG: print("+++ " + self.__repr__())
@@ -98,6 +102,8 @@ class Monkey:
             if not relief:
                 self.relief()
                 if DEBUG: print("+ Monkey gets bored with item. Worry level is divided by 3 to {}.".format(self.items[0]))
+            else:
+                self.modulo()
             self.div_test()
             self.count += 1
             
@@ -178,7 +184,7 @@ def part_2():
         print("\n\nROUND #" + str(r+1))
         s = 0
         for mon in monkeys:
-            print("\nMONKEY #" + str(s))
+            if DEBUG: print("\nMONKEY #" + str(s))
             mon.action(relief=True)
             s += 1
 
@@ -195,6 +201,11 @@ if __name__ == '__main__':
     # parse
     p = Parser(text)
     p.parse()
+    
+    # calc monkey_modulo
+    monkey_modulo = 1
+    for monkey in monkeys:
+        monkey_modulo *= monkey.test
     
     # main program part 1
     # sol1 = part_1()
