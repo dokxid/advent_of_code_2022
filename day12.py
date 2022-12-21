@@ -1,5 +1,6 @@
 # imports
 from icecream import ic
+from treelib.tree import *
 
 import constants
 
@@ -10,17 +11,12 @@ DEBUG = True
 if not DEBUG:
     ic.disable()
 
-# open file
-file = constants.open_file(DAY, DEBUG_DATA)
-text = file.readlines()
-text = list(map(constants.sanitize, text))
-line_count = text.__len__()
-
 # var
 sol1 = 0
 sol2 = 0
 data = {}
-    
+field = []
+
 
 class Parser:
     
@@ -28,23 +24,36 @@ class Parser:
         self.text_parse = text_parse
         self.len = text_parse.__len__()
         
-    def parse(self):
-        return 0
+    @staticmethod
+    def parse():
+        # open file
+        f = constants.open_file(DAY, DEBUG_DATA)
+        t = f.readlines()
+        t = list(map(constants.sanitize, t))
+        return t
 
 
 def part_1():
+    
+    # logic
+    path = Tree()
+    
+    # return
     return 0
 
 
 def part_2():
+    
+    # logic
+    
+    # return
     return 0
     
 
 if __name__ == '__main__':
     
     # parse
-    p = Parser(text)
-    p.parse()
+    field = Parser.parse()
     
     # main program
     sol1 = part_1()
@@ -53,7 +62,7 @@ if __name__ == '__main__':
     # print solution
     if DEBUG:
         ic("DEBUG")
-        ic(data)
+        ic(field)
     print("sol1: ", sol1)
     print("sol2: ", sol2)
     
