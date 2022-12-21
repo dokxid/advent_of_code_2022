@@ -7,8 +7,7 @@ import constants
 
 # constants
 DAY = 11
-PART = 1
-DEBUG_DATA = False
+DEBUG_DATA = True
 DEBUG = True
 if not DEBUG:
     ic.disable()
@@ -22,7 +21,6 @@ line_count = text.__len__()
 # var
 sol1 = 0
 sol2 = 0
-rounds = 20
 data = {}
 monkeys = []
 
@@ -37,7 +35,7 @@ class Operation:
 class Monkey:
     
     def __init__(self, items=None,
-                 operation=Operation(operand=0, op="+"),
+                 operation=Operation(operand="0", op="+"),
                  test=2,
                  monkey_true=0,
                  monkey_false=0):
@@ -60,18 +58,18 @@ class Monkey:
             "monkey_false: " + self.monkey_false.__repr__() + ")"
     
     def throw(self, target):
-        print("+ Item with worry level {} is thrown to monkey #{}.".format(self.items[0], monkeys.index(target)))
+        if DEBUG: print("+ Item with worry level {} is thrown to monkey #{}.".format(self.items[0], monkeys.index(target)))
         target.items.append(self.items.pop(0))
         
     def div_test(self):
         if self.items[0].__class__ == int:
             if self.items[0] % self.test == 0:
                 # case true
-                print("+ Current worry level is divisible by {}.".format(self.test))
+                if DEBUG: print("+ Current worry level is divisible by {}.".format(self.test))
                 self.throw(monkeys[self.monkey_true])
             else:
                 # case false
-                print("+ Current worry level is not divisible by {}.".format(self.test))
+                if DEBUG: print("+ Current worry level is not divisible by {}.".format(self.test))
                 self.throw(monkeys[self.monkey_false])
         
     def evaluate(self):
@@ -91,14 +89,15 @@ class Monkey:
         if self.items[0].__class__ == int:
             self.items[0] = self.items[0] // 3
     
-    def action(self):
-        print("+++ " + self.__repr__())
+    def action(self, relief=False):
+        if DEBUG: print("+++ " + self.__repr__())
         while len(self.items) != 0:
-            print("++ Monkey inspects an item with a worry level of {}.".format(self.items[0]))
+            if DEBUG: print("++ Monkey inspects an item with a worry level of {}.".format(self.items[0]))
             self.evaluate()
-            print("+ Worry level has increased to {}".format(self.items[0]))
-            self.relief()
-            print("+ Monkey gets bored with item. Worry level is divided by 3 to {}.".format(self.items[0]))
+            if DEBUG: print("+ Worry level has increased to {}".format(self.items[0]))
+            if not relief:
+                self.relief()
+                if DEBUG: print("+ Monkey gets bored with item. Worry level is divided by 3 to {}.".format(self.items[0]))
             self.div_test()
             self.count += 1
             
@@ -149,6 +148,9 @@ class Parser:
 
 def part_1():
     
+    # task constant
+    rounds = 20
+    
     # monkey business be like
     for r in range(rounds):
         print("\n\nROUND #" + str(r+1))
@@ -156,6 +158,28 @@ def part_1():
         for mon in monkeys:
             print("\nMONKEY #" + str(s))
             mon.action()
+            s += 1
+
+    # store monkey business score
+    temp = []
+    for mon in monkeys:
+        temp += [mon.count]
+    temp.sort(reverse=True)
+    return temp[0] * temp[1]
+
+
+def part_2():
+    
+    # task constant
+    rounds = 10000
+    
+    # monkey business be like
+    for r in range(rounds):
+        print("\n\nROUND #" + str(r+1))
+        s = 0
+        for mon in monkeys:
+            print("\nMONKEY #" + str(s))
+            mon.action(relief=True)
             s += 1
 
     # store monkey business score
@@ -173,7 +197,8 @@ if __name__ == '__main__':
     p.parse()
     
     # main program part 1
-    sol1 = part_1()
+    # sol1 = part_1()
+    sol2 = part_2()
     
     # main program part 2
     
@@ -187,3 +212,4 @@ if __name__ == '__main__':
     
     # end of program reached
     print("end of program reached")
+    

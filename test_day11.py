@@ -27,7 +27,7 @@ class TestMonkey(TestCase):
         
     def test_evaluate_times(self):
         
-        m0 = Monkey([2, 3], operation=Operation(operand=4, op="*"))
+        m0 = Monkey([2, 3], operation=Operation(operand="4", op="*"))
         m1 = Monkey([3, 4])
         
         monkeys.append(m0)
@@ -38,7 +38,7 @@ class TestMonkey(TestCase):
         
     def test_evaluate_plus(self):
         
-        m0 = Monkey([2, 3], operation=Operation(operand=4, op="+"))
+        m0 = Monkey([2, 3], operation=Operation(operand="4", op="+"))
         m1 = Monkey([3, 4])
         
         monkeys.append(m0)
@@ -84,15 +84,8 @@ class TestMonkey(TestCase):
         monkeys.append(m2)
         
         # test false
-        ic('false')
         m0.action()
         self.assertEqual(3, m1.items[0])
-        self.assertEqual(30, m0.items[0])
-
-        # test true
-        ic('true')
-        m0.action()
         self.assertEqual(10, m2.items[0])
-        self.assertEqual([], m0.items)
         
         
