@@ -16,7 +16,7 @@ class Test(TestCase):
              [5, 3, True, 3, 5],
              [5, 3, 5, 3, 5]]
         res = get_neighbors(a, 2, 2)
-        print(res)
+        self.assertEqual([[6, 23, 1], ['a', 4, 'bb'], [3, True, 3]], res)
         
     def test_get_neighbors_out_of_bounds(self):
         a = [[5, 3, 5, 3, 5],
@@ -25,4 +25,4 @@ class Test(TestCase):
              [5, 3, True, 3, 5],
              [5, 3, 5, 3, 5]]
         res = get_neighbors(a, 0, 0)
-        print(res)
+        self.assertEqual([[0, 0, 0], [0, 5, 3], [0, 5, 6]], res)
