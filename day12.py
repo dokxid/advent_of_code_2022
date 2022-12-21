@@ -32,19 +32,28 @@ class Parser:
         return t
     
 
-def part_1():
+def part_1(f):
     
     # find S
-    s = find_char("S", field, DEBUG)
-    e = find_char("E", field, DEBUG)
+    s = find_char('S', f, DEBUG)
+    e = find_char('E', f, DEBUG)
+    ic(s, e)
     
+    # convert field to correct heatmap
+    f[s[0]] = f[s[0]].replace('S', 'a')
+    f[e[0]] = f[e[0]].replace('E', 'z')
+    for line in range(len(f)):
+        f[line] = list(map(ord, f[line]))
+    
+    # store paths
     path = Tree()
     
-    # return
+    # return and debug
+    ic(field)
     return 0
 
 
-def part_2():
+def part_2(f):
     
     # logic
     
@@ -58,13 +67,12 @@ if __name__ == '__main__':
     field = Parser.parse()
     
     # main program
-    sol1 = part_1()
-    sol2 = part_2()
+    sol1 = part_1(field)
+    sol2 = part_2(field)
     
     # print solution
     if DEBUG:
         ic("DEBUG")
-        ic(field)
     print("sol1: ", sol1)
     print("sol2: ", sol2)
     

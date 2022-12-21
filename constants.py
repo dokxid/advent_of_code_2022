@@ -26,11 +26,11 @@ def parse_int(a: str):
 
 
 def find_char(c: str, text, debug=True):
-    for r in text:
+    for idr, r in enumerate(text):
         i = r.find(c)
         if i != -1:
             if debug: print("found {} in: {}, position {}".format(c, text.index(r), i))
-            return i
+            return idr, i
 
 
 # unused but interesting https://en.m.wikipedia.org/wiki/Karatsuba_algorithm#Pseudocode
